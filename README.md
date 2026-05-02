@@ -1,3 +1,3 @@
 # Search
 
-A simple repository to test different type code of different type of searches.
+A simple repository to test different type of code for different type of searches.
