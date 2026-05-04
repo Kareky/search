@@ -4,10 +4,10 @@ import (
 	"cmp"
 )
 
-// BinarySearchInt performs a binary search for the target integer in the sorted array of integers.
+// performs a binary search for the target integer in the sorted array of integers.
 // The array must be sorted in increasing order.
 // It returns the index of the target if found, or -1 and false if not found.
-func BinarySearchInt(arrayToSearch []int, target int) (int, bool) {
+func SearchInt(arrayToSearch []int, target int) (int, bool) {
 	left, right := 0, len(arrayToSearch)-1
 	for left <= right {
 		mid := int(uint(left+right) >> 1) // avoid left+right overflow max int
@@ -23,10 +23,10 @@ func BinarySearchInt(arrayToSearch []int, target int) (int, bool) {
 	return -1, false
 }
 
-// BinarySearchString performs a binary search for the target string in the sorted array of strings.
+// performs a binary search for the target string in the sorted array of strings.
 // The array must be sorted in alphabetical order.
 // It returns the index of the target if found, or -1 and false if not found.
-func BinarySearchString(arrayToSearch []string, target string) (int, bool) {
+func SearchString(arrayToSearch []string, target string) (int, bool) {
 	left, right := 0, len(arrayToSearch)-1
 	for left <= right {
 		mid := int(uint(left+right) >> 1) // avoid left+right overflow max int
@@ -42,11 +42,11 @@ func BinarySearchString(arrayToSearch []string, target string) (int, bool) {
 	return -1, false
 }
 
-// BinarySearchBasicType performs a binary search for the target of any basic type
+// performs a binary search for the target of any basic type
 // that can be ordered in the sorted array of the same type.
 // The array must be sorted in increasing order.
 // It returns the index of the target if found, or -1 and false if not found.
-func BinarySearchBasicType[basicType cmp.Ordered](arrayToSearch []basicType, target basicType) (int, bool) {
+func SearchBasicType[basicType cmp.Ordered](arrayToSearch []basicType, target basicType) (int, bool) {
 	left, right := 0, len(arrayToSearch)-1
 	for left <= right {
 		mid := int(uint(left+right) >> 1) // avoid left+right overflow max int
@@ -61,14 +61,14 @@ func BinarySearchBasicType[basicType cmp.Ordered](arrayToSearch []basicType, tar
 	return -1, false
 }
 
-// BinarySearchSlice performs a binary search for the target in the sorted slice of any type.
+// performs a binary search for the target in the sorted slice of any type.
 // When returning an error, the index is set to -1. When the target is not found, the error is nil and the index is set to -1.
 // The slice must be sorted  in increasing order according to the comparison function if provided. 
 // compareFunc should return 0 if the slice element matches the target,
 // a negative number if the slice element precedes the target,
 // or a positive number if the slice element follows the target.
 // The function use the same behavior as slices.BinarySearch
-func BinarySearchSlice[s ~[]anyType, anyType any](sliceToSearch s, target anyType, compareFunc func(anyType, anyType) int) (int, error) {
+func SearchSlice[s ~[]anyType, anyType any](sliceToSearch s, target anyType, compareFunc func(anyType, anyType) int) (int, error) {
 	if compareFunc == nil {
 		return -1, ErrComparisonFunctionRequired
 	}
