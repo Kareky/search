@@ -5,7 +5,7 @@ import (
 )
 
 // sorts an array of integers in increasing order using selection sort algorithm.
-func SortIntArray(arrayToSort []int) {
+func SortInt(arrayToSort []int) {
 	for i := 0; i < len(arrayToSort)-1; i++ {
 		minIndex := findMinIndex(arrayToSort, i)
 		swap(arrayToSort, i, minIndex)
@@ -13,7 +13,7 @@ func SortIntArray(arrayToSort []int) {
 }
 
 // sorts an array of strings in increasing order using selection sort algorithm.
-func SortStringArray(arrayToSort []string) {
+func SortString(arrayToSort []string) {
 	for i := 0; i < len(arrayToSort)-1; i++ {
 		minIndex := findMinIndex(arrayToSort, i)
 		swap(arrayToSort, i, minIndex)
@@ -21,7 +21,7 @@ func SortStringArray(arrayToSort []string) {
 }
 
 // sorts an array of any basic type that can be ordered in increasing order using selection sort algorithm.
-func SortBasicTypeArray[basicType cmp.Ordered](arrayToSort []basicType) {
+func SortBasicType[basicType cmp.Ordered](arrayToSort []basicType) {
 	for i := 0; i < len(arrayToSort)-1; i++ {
 		minIndex := findMinIndex(arrayToSort, i)
 		swap(arrayToSort, i, minIndex)

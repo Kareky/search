@@ -5,21 +5,21 @@ import (
 )
 
 // sorts an array of integers in increasing order using insertion sort algorithm.
-func SortIntArray(arrayToSort []int) {
+func SortInt(arrayToSort []int) {
 	for i := 1; i < len(arrayToSort); i++ {
 		insert(arrayToSort, i-1, arrayToSort[i])
 	}
 }
 
 // sorts an array of strings in increasing order using insertion sort algorithm.
-func SortStringArray(arrayToSort []string) {
+func SortString(arrayToSort []string) {
 	for i := 1; i < len(arrayToSort); i++ {
 		insert(arrayToSort, i-1, arrayToSort[i])
 	}
 }
 
 // sorts an array of any basic type that can be ordered in increasing order using insertion sort algorithm.
-func SortBasicTypeArray[basicType cmp.Ordered](arrayToSort []basicType) {
+func SortBasicType[basicType cmp.Ordered](arrayToSort []basicType) {
 	for i := 1; i < len(arrayToSort); i++ {
 		insert(arrayToSort, i-1, arrayToSort[i])
 	}
