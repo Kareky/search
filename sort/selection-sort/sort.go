@@ -56,7 +56,7 @@ func findMinIndex[basicType cmp.Ordered](arrayToSearch []basicType, startIndex i
 // The comparison function should return a negative integer if the first argument is less than the second,
 // zero if they are equal, and a positive integer if the first argument is greater than the second.
 // The function returns an error only if the slice is nil or if the comparison function is nil.
-func SortSlice[s ~[]anyType, anyType any](sliceToSort *s, compareFunc func(anyType, anyType) int) (error) {
+func SortSlice[s ~[]anyType, anyType any](sliceToSort s, compareFunc func(anyType, anyType) int) (error) {
 	if sliceToSort == nil {
 		return ErrArrayCannotBeNil
 	}
@@ -65,10 +65,10 @@ func SortSlice[s ~[]anyType, anyType any](sliceToSort *s, compareFunc func(anyTy
 		return ErrComparisonFunctionRequired
 	}
 
-	for i := 0; i < len(*sliceToSort)-1; i++ {
-		minIndex := findMinIndexSlice(*sliceToSort, i, compareFunc)
+	for i := 0; i < len(sliceToSort)-1; i++ {
+		minIndex := findMinIndexSlice(sliceToSort, i, compareFunc)
 		// swapping the lower element at index minIndex with the current element at index i
-		(*sliceToSort)[i], (*sliceToSort)[minIndex] = (*sliceToSort)[minIndex], (*sliceToSort)[i]
+		sliceToSort[i], sliceToSort[minIndex] = sliceToSort[minIndex], sliceToSort[i]
 	}
 
 	return nil
