@@ -4,59 +4,61 @@ import (
 	"cmp"
 )
 
-// sorts an array of integers in increasing order using selection sort algorithm.
-func SortInt(arrayToSort []int) {
-	for i := 0; i < len(arrayToSort)-1; i++ {
-		minIndex := findMinIndex(arrayToSort, i)
-		swap(arrayToSort, i, minIndex)
+// SortInt sorts s in ascending order using selection sort.
+func SortInt(s []int) {
+	for i := 0; i < len(s)-1; i++ {
+		minIndex := findMinIndex(s, i)
+		swap(s, i, minIndex)
 	}
 }
 
-// sorts an array of strings in increasing order using selection sort algorithm.
-func SortString(arrayToSort []string) {
-	for i := 0; i < len(arrayToSort)-1; i++ {
-		minIndex := findMinIndex(arrayToSort, i)
-		swap(arrayToSort, i, minIndex)
+// SortString sorts s in alphabetical order using selection sort.
+func SortString(s []string) {
+	for i := 0; i < len(s)-1; i++ {
+		minIndex := findMinIndex(s, i)
+		swap(s, i, minIndex)
 	}
 }
 
-// sorts an array of any basic type that can be ordered in increasing order using selection sort algorithm.
-func SortBasicType[basicType cmp.Ordered](arrayToSort []basicType) {
-	for i := 0; i < len(arrayToSort)-1; i++ {
-		minIndex := findMinIndex(arrayToSort, i)
-		swap(arrayToSort, i, minIndex)
+// SortBasicType sorts s in ascending order using selection sort.
+// E must be a type that can be ordered using the <= operator, such as int, float64, string, etc.
+func SortBasicType[E cmp.Ordered](s []E) {
+	for i := 0; i < len(s)-1; i++ {
+		minIndex := findMinIndex(s, i)
+		swap(s, i, minIndex)
 	}
 }
 
-// swaps the elements at firstIndex and secondIndex in the array
-func swap[basicType cmp.Ordered](arrayToSwap []basicType, firstIndex, secondIndex int) []basicType {
-	if arrayToSwap == nil || firstIndex < 0 || secondIndex < 0 || firstIndex >= len(arrayToSwap) || secondIndex >= len(arrayToSwap) {
+// swap swaps s[firstIndex] and s[secondIndex] and returns s.
+// It returns nil if s is nil or the indices are out of bounds.
+func swap[E cmp.Ordered](s []E, firstIndex, secondIndex int) []E {
+	if s == nil || firstIndex < 0 || secondIndex < 0 || firstIndex >= len(s) || secondIndex >= len(s) {
 		return nil
 	}
-	var temp = arrayToSwap[firstIndex]
-	arrayToSwap[firstIndex] = arrayToSwap[secondIndex]
-	arrayToSwap[secondIndex] = temp
-	return arrayToSwap
+	var temp = s[firstIndex]
+	s[firstIndex] = s[secondIndex]
+	s[secondIndex] = temp
+	return s
 }
 
-// finds the index of the smallest element in the array starting from startIndex
-func findMinIndex[basicType cmp.Ordered](arrayToSearch []basicType, startIndex int) int {
+// findMinIndex returns the index of the smallest element in s[startIndex:].
+func findMinIndex[E cmp.Ordered](s []E, startIndex int) int {
     var minIndex = startIndex;
 
 	//start from second element, no reason to compare first element with itself
-    for i := minIndex + 1; i < len(arrayToSearch); i++ {
-        if(arrayToSearch[i] < arrayToSearch[minIndex]) {
+    for i := minIndex + 1; i < len(s); i++ {
+        if(s[i] < s[minIndex]) {
             minIndex = i
         }
     } 
     return minIndex;
 };
 
-// sorts a slice of any type using selection sort algorithm and a custom comparison function.
-// The comparison function should return a negative integer if the first argument is less than the second,
-// zero if they are equal, and a positive integer if the first argument is greater than the second.
-// The function returns an error only if the slice is nil or if the comparison function is nil.
-func SortSlice[s ~[]anyType, anyType any](sliceToSort s, compareFunc func(anyType, anyType) int) (error) {
+// SortSlice sorts s using selection sort and compareFunc.
+// compareFunc should return a negative value if a < b, zero if they are equal,
+// and a positive value if a > b.
+// It returns an error if s or compareFunc is nil.
+func SortSlice[s ~[]E, E any](sliceToSort s, compareFunc func(E, E) int) (error) {
 	if sliceToSort == nil {
 		return ErrArrayCannotBeNil
 	}
@@ -74,8 +76,9 @@ func SortSlice[s ~[]anyType, anyType any](sliceToSort s, compareFunc func(anyTyp
 	return nil
 }
 
-// finds the index of the smallest element in the slice starting from startIndex using the provided comparison function.
-func findMinIndexSlice[s ~[]anyType, anyType any](sliceToSearch s, startIndex int, compareFunc func(anyType, anyType) int) int {
+// findMinIndexSlice returns the index of the smallest element in s[startIndex:],
+// using compareFunc for comparisons.
+func findMinIndexSlice[s ~[]E, E any](sliceToSearch s, startIndex int, compareFunc func(E, E) int) int {
 	var minIndex = startIndex;
 	//start from second element, no reason to compare first element with itself
 	for i := minIndex + 1; i < len(sliceToSearch); i++ {
