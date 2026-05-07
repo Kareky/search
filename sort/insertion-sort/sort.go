@@ -2,6 +2,7 @@ package insertionSort
 
 import (
 	"cmp"
+	"github.com/Kareky/search/internal/errors"
 )
 
 // SortInt sorts s in ascending order using insertion sort.
@@ -41,11 +42,11 @@ func insert[E cmp.Ordered](s []E, orderedToIndex int, value E) {
 // It returns ErrSliceCannotBeNil if s is nil, or ErrComparisonFunctionRequired if compareFunc is nil.
 func SortSlice[S ~[]E, E any](s S, compareFunc func(E, E) int) error {
 	if s == nil {
-		return ErrSliceCannotBeNil
+		return errors.ErrSliceCannotBeNil
 	}
 
 	if compareFunc == nil {
-		return ErrComparisonFunctionRequired
+		return errors.ErrComparisonFunctionRequired
 	}
 
 	// Insertion sort algorithm

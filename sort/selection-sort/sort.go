@@ -2,6 +2,7 @@ package selectionSort
 
 import (
 	"cmp"
+	"github.com/Kareky/search/internal/errors"
 )
 
 // SortInt sorts s in ascending order using selection sort.
@@ -60,11 +61,11 @@ func findMinIndex[E cmp.Ordered](s []E, startIndex int) int {
 // It returns an error if s or compareFunc is nil.
 func SortSlice[s ~[]E, E any](sliceToSort s, compareFunc func(E, E) int) (error) {
 	if sliceToSort == nil {
-		return ErrArrayCannotBeNil
+		return errors.ErrSliceCannotBeNil
 	}
 
 	if compareFunc == nil {
-		return ErrComparisonFunctionRequired
+		return errors.ErrComparisonFunctionRequired
 	}
 
 	for i := 0; i < len(sliceToSort)-1; i++ {

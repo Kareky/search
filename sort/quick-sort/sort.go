@@ -3,6 +3,7 @@ package quickSort
 import (
 	"cmp"
 	"math/rand/v2"
+	"github.com/Kareky/search/internal/errors"
 )
 
 // SortInt sorts s in ascending order.
@@ -92,11 +93,11 @@ func partition[E cmp.Ordered](s []E) int {
 // It returns ErrSliceCannotBeNil if s is nil, or ErrComparisonFunctionRequired if compareFunc is nil.
 func SortSlice[S ~[]E, E any](s S, compareFunc func(E,E) int) error {
 	if s == nil {
-		return ErrSliceCannotBeNil
+		return errors.ErrSliceCannotBeNil
 	}
 
 	if compareFunc == nil {
-		return ErrComparisonFunctionRequired
+		return errors.ErrComparisonFunctionRequired
 	}
 
 	if len(s) <= 1 {

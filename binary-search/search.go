@@ -2,6 +2,7 @@ package binarySearch
 
 import (
 	"cmp"
+	"github.com/Kareky/search/internal/errors"
 )
 
 // SearchInt returns the index and true if target is in s, or -1 and false.
@@ -62,11 +63,11 @@ func SearchBasicType[basicType cmp.Ordered](s []basicType, target basicType) (in
 // s must be sorted in ascending order according to compareFunc.
 func SearchSlice[s ~[]anyType, anyType any](sliceToSearch s, target anyType, compareFunc func(anyType, anyType) int) (int, error) {
 	if sliceToSearch == nil {
-		return -1, ErrSliceCannotBeNil
+		return -1, errors.ErrSliceCannotBeNil
 	}
 
 	if compareFunc == nil {
-		return -1, ErrComparisonFunctionRequired
+		return -1, errors.ErrComparisonFunctionRequired
 	}
 
 	left, right := 0, len(sliceToSearch)-1

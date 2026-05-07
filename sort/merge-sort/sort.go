@@ -1,6 +1,9 @@
 package mergeSort
 
-import "cmp"
+import (
+	"cmp"
+	"github.com/Kareky/search/internal/errors"
+)
 
 // SortInt sorts s in ascending order using merge sort.
 func SortInt(s []int) []int {
@@ -88,11 +91,11 @@ func merge[E cmp.Ordered](s []E, left int, middle int, right int) {
 // It returns ErrSliceCannotBeNil if s is nil, or ErrComparisonFunctionRequired if compareFunc is nil.
 func SortSlice[s ~[]E, E any](sliceToSort s, compareFunc func(E, E) int) error {
 	if sliceToSort == nil {
-		return ErrSliceCannotBeNil
+		return errors.ErrSliceCannotBeNil
 	}
 
 	if compareFunc == nil {
-		return ErrComparisonFunctionRequired
+		return errors.ErrComparisonFunctionRequired
 	}
 
 	divideAndOrderSlice(sliceToSort, 0, len(sliceToSort)-1, compareFunc)
